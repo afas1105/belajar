@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.ContentLoadingProgressBar;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             client = new TusClient();
             client.setUploadCreationURL(new URL("http://uploader-dev.eventori.id/files/"));
             client.enableResuming(new TusPreferencesURLStore(pref));
+            Log.d("afas", pref.toString());
         } catch (Exception e) {
             showError(e);
         }
@@ -179,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
                 metaData.put("uniqueid","uniqueID0987654321");
                 metaData.put("userid","954");
                 metaData.putAll(upload.getMetadata());
+                upload.setMetadata(metaData);
 
                 // Upload file in 1MiB chunks
                 uploader.setChunkSize(1024 * 1024);
