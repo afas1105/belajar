@@ -171,10 +171,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected URL doInBackground(Void... params) {
             try {
-                TusUploader uploader = client.resumeOrCreateUpload(upload);
-                long totalBytes = upload.getSize();
-                long uploadedBytes = uploader.getOffset();
-
                 Map<String, String> metaData = new LinkedHashMap<>();
                 metaData.put("filename","file.name");
                 metaData.put("filetype","video/*");
@@ -182,6 +178,13 @@ public class MainActivity extends AppCompatActivity {
                 metaData.put("userid","954");
                 metaData.putAll(upload.getMetadata());
                 upload.setMetadata(metaData);
+
+                Log.d("METADATA", String.valueOf(metaData));
+
+                TusUploader uploader = client.resumeOrCreateUpload(upload);
+                long totalBytes = upload.getSize();
+                long uploadedBytes = uploader.getOffset();
+
 
                 // Upload file in 1MiB chunks
                 uploader.setChunkSize(1024 * 1024);
